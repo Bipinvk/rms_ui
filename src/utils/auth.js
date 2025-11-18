@@ -15,7 +15,7 @@ const apiCall = async (url, options = {}) => {
   const res = await fetch(url, options);
   if (res.status === 401) removeToken();
   if (!res.ok) {
-    const errorData = await res.json();
+    const errorData = await res.json().catch(() => ({}));
     throw new Error(errorData.msg || 'Request failed');
   }
   return res.json();
